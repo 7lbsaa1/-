@@ -1,0 +1,219 @@
+/* ─────────────────────────────────────────────
+   تنسيقات الصفحة الأساسية (CSS)
+   ───────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f0f0f;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #f1f1f1;
+}
+
+/* حاوية المشغل الخارجية */
+.player-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* الـ Wrapper المطلوب في السكربت */
+#playerWrapper, .player-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* أبعاد 16:9 للمشغل */
+  background: #000;
+}
+
+/* مشغل اليوتيوب الفعلي */
+#player {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* مؤشر التحميل (Spinner) */
+#spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: #ff0000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+#spinner.show {
+  opacity: 1;
+}
+
+@keyframes spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────
+   أزرار التحكم المخصصة (Controls)
+   ───────────────────────────────────────────── */
+.controls {
+  background: rgba(26, 26, 26, 0.95);
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* شريط التقدم التفاعلي (Timeline) */
+.progress-container {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* شريط التحميل المسبق (Buffer) */
+#bufferBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  width: 0%;
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+/* شريط التقدم الفعلي لزمن الفيديو */
+#progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #ff0000;
+  width: 0%;
+  border-radius: 3px;
+}
+
+/* المقبض الدائري لشريط التقدم */
+#timeThumb {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.1s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.progress-container:hover #timeThumb {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* الأزرار والصوت والوقت */
+.control-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* تصميم أزرار التحكم */
+.btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  transition: color 0.2s ease;
+}
+
+.btn:hover {
+  color: #ff0000;
+}
+
+/* عرض الوقت */
+#timeDisplay {
+  font-size: 0.9rem;
+  font-family: monospace;
+  color: #ccc;
+}
+
+#timeDisplay span {
+  color: #666;
+  margin: 0 3px;
+}
+
+/* التحكم بالصوت */
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#volumeSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#volumeSlider::-webkit-slider-thumb:hover {
+  background: #ff0000;
+}
